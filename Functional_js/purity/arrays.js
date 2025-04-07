@@ -10,7 +10,10 @@ export function push(element, array) {
 // instead of myArray[index] = value
 export function update(index, value, array) {
     // TODO return a new copy of the array with the given value at index
-		return array.map((item, i) => i === index ? value : item);
+		// return array.map((item, i) => i === index ? value : item);
+    const itemsBefore  = array.slice(0, index);
+    const itemsAfter = array.slice(index + 1);
+    return [...itemsBefore, value, ...itemsAfter]
 }
 
 // instead of myArray.pop();
