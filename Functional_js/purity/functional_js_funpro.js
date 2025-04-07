@@ -7,11 +7,34 @@ export function filter(predicateFn, array) {
     return concat(filteredFirst, filter(predicateFn, tail(array)));
 }
 
-
 export function map(fn, array) {
-    // TODO
-	if (length(array) === 0) return [];
-	return concat([fn(head(array))], map(fn, tail(array)));
+    if (length(array) === 0) return [];
+    return [fn(head(array))].concat(map(fn, tail(array)));
+}
+
+export function reduce(reducerFn, initialValue, array) {
+    if (length(array) === 0) return initialValue;
+    const newInitialValue = reducerFn(initialValue, head(array));
+    return reduce(reducerFn, newInitialValue, tail(array));
+}
+
+export function sum(array) {
+    return reduce(
+        (acc, val) => acc + val, // TODO replace this reducerFn
+        0, // TODO replace this initialValue
+        array
+    )
+}
+
+export function max(array) {
+    return reduce(
+        (acc, val) => val > acc 
+					? val 
+					: acc  === undefined
+					? val : acc, // TODO replace this reducerFn
+        undefined, // TODO replace this initialValue
+        array
+    )
 }
 
 
